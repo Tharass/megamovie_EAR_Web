@@ -53,6 +53,8 @@ public class GestionFilmsPageBean implements Serializable{
 
 	@Getter @Setter
 	private Realisateur reaSelect;
+	
+	
 
 
 

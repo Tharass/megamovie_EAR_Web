@@ -12,7 +12,7 @@ import beans.GestionFilmsPageBean;
 import model.entities.Realisateur;
  
 @FacesConverter("realisateurConverter")
-public class GenreConverter implements Converter{
+public class RealisateurConverter implements Converter{
 
 	
 	@Override
