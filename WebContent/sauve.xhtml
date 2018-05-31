@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+<p:dataTable id="film" var="film"
+				value="#{evaluerFilmPageBean.listFilms}"
+				rendered="#{evaluerFilmPageBean.afficherTableau()}" >
+
+
+				<p:column headerText="Jacket">
+					<p:graphicImage value="#{evaluerFilmPageBean.productImage}"
+						width="150">
+						<f:param name="pid" value="#{film.id}" />
+					</p:graphicImage>
+				</p:column>
+
+				<p:column headerText="Titre">
+					<h:outputText value="#{film.titre}" />
+				</p:column>
+
+				<p:column headerText="Realisateur">
+					<h:outputText value="#{film.realisateur}" />
+				</p:column>
+
+				<p:column headerText="Date de sortie">
+					<h:outputText value="#{film.dateDeSortie}">
+						<f:converter converterId="localDateConverter" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Genre">
+					<h:outputText value="#{film.genre}" />
+				</p:column>
+
+
+			</p:dataTable>
+</body> 
+</html>

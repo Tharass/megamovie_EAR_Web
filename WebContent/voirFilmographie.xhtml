@@ -1,0 +1,64 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/standard.xhtml">
+
+	<ui:define name="titre">Filmographie</ui:define>
+
+
+
+	<ui:define name="zone_body">
+		<h:form>
+			<p:fieldset legend="Selectionner un Réalisateur"
+				style="margin-bottom:20px;width:700px">
+				<h:panelGrid columns="3" cellspacing="10">
+
+					<p:outputLabel value="Realisateur" for="inputRealisateur" />
+					<p:selectOneMenu value="#{voirFilmographiePageBean.reaSelect}"
+						id="inputRealisateur" panelStyle="width:250px"
+						converter="realisateurConverter">
+						<p:ajax event="valueChange"
+							listener="#{voirFilmographiePageBean.searchFilmByRealisateur}"
+							update="@form :tab" />
+						<f:selectItems value="#{voirFilmographiePageBean.listRealisateur}"
+							var="rea" itemLabel="#{rea.nom}" itemValue="#{rea}" />
+					</p:selectOneMenu>
+					<h:message for="inputRealisateur" />
+
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+
+		<h:form id="tab" enctype="multipart/form-data">
+
+			<p:dataTable id="film" var="film"
+				value="#{voirFilmographiePageBean.listFilms}"
+				rendered="#{voirFilmographiePageBean.afficherTableau()}">
+
+				<p:column headerText="Jacket">
+
+					<p:graphicImage value="#{voirFilmographiePageBean.productImage}" width="150" >
+						<f:param name="pid" value="#{film.id}" />
+					</p:graphicImage>
+
+
+				</p:column>
+
+				<p:column headerText="Titre">
+					<h:outputText value="#{film.titre}" />
+				</p:column>
+
+				<p:column headerText="Date de sortie">
+					<h:outputText value="#{film.dateDeSortie}">
+						<f:converter converterId="localDateConverter" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Genre">
+					<h:outputText value="#{film.genre}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

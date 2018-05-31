@@ -1,0 +1,159 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/standard.xhtml">
+
+	<ui:define name="titre">Formulaire Film</ui:define>
+
+
+
+	<ui:define name="zone_body">
+		<h:form enctype="multipart/form-data">
+
+			<p:fieldset legend="Principal" style="margin-bottom:20px;width:700px">
+				<h:panelGrid columns="3" cellspacing="10">
+
+					<p:outputLabel value="Titre" for="inputTitre" />
+					<p:inputText value="#{gestionFilmsPageBean.film.titre}"
+						id="inputTitre">
+					</p:inputText>
+					<h:message for="inputTitre" />
+
+					<p:outputLabel value="Realisateur" for="inputRealisateur" />
+					<p:selectOneMenu value="#{gestionFilmsPageBean.reaSelect}"
+						id="inputRealisateur" panelStyle="width:250px"
+						converter="realisateurConverter">
+						<f:selectItems value="#{gestionFilmsPageBean.listRealisateur}"
+							var="rea" itemLabel="#{rea.nom}" itemValue="#{rea}" />
+					</p:selectOneMenu>
+					<h:message for="inputRealisateur" />
+
+
+					<p:outputLabel value="Date de sortie" for="inputDateDeSorti" />
+					<p:calendar id="inputDateDeSorti"
+						value="#{gestionFilmsPageBean.film.dateDeSortie}"
+						pattern="dd/MM/yyyy" showOn="button">
+						<f:converter converterId="localDateConverter" />
+					</p:calendar>
+					<h:message for="inputDateDeSorti" />
+
+				</h:panelGrid>
+			</p:fieldset>
+			<p:fieldset legend="Principal" style="margin-bottom:20px;width:700px">
+				<h:panelGrid columns="3" cellspacing="10">
+				
+					<p:outputLabel value="Genre" for="inputGenre" />
+					<p:selectOneRadio id="inputGenre"
+						value="#{gestionFilmsPageBean.film.genre}" layout="grid"
+						columns="3">
+						<f:selectItems value="#{gestionFilmsPageBean.listGenres}" />
+					</p:selectOneRadio>
+					<h:message for="inputGenre" />
+
+
+					<p:outputLabel value="Jacket du film" for="inputImage" />
+					<p:fileUpload id="inputImage"
+						fileUploadListener="#{gestionFilmsPageBean.handleFileUpload}"
+						mode="advanced" dragDropSupport="false" multiple="true"
+						update="messages" sizeLimit="100000" fileLimit="1"
+						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+					<p:growl id="messages" showDetail="true" />
+
+
+
+				</h:panelGrid>
+
+			</p:fieldset>
+			<p:fieldset style="margin-bottom:20px;width:700px">
+				<p:commandButton
+					actionListener="#{gestionFilmsPageBean.ajouterFilm()}"
+					value="Enregistrer" update="@form :tab" />
+			</p:fieldset>
+		</h:form>
+
+		<h:form id="tab">
+
+			<p:dataTable id="film" var="film"
+				value="#{gestionFilmsPageBean.listFilms}"
+				rendered="#{gestionFilmsPageBean.afficherTableau()}" editable="true">
+
+				<p:ajax event="rowEdit" listener="#{gestionFilmsPageBean.onRowEdit}" />
+				<p:ajax event="rowEditCancel"
+					listener="#{gestionFilmsPageBean.onRowCancel}" />
+l
+				<p:column headerText="Titre">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{film.titre}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{film.titre}" id="inputTitre" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Realisateur">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{film.realisateur}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{gestionFilmsPageBean.reaSelect}"
+								id="inputRealisateur" panelStyle="width:250px"
+								converter="realisateurConverter">
+								<f:selectItems value="#{gestionFilmsPageBean.listRealisateur}"
+									var="rea" itemLabel="#{rea.nom}" itemValue="#{rea}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+
+				<p:column headerText="Date de sortie">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{film.dateDeSortie}">
+								<f:converter converterId="localDateConverter" />
+							</h:outputText>
+						</f:facet>
+						<f:facet name="input">
+							<p:calendar id="inputDateDeSorti" value="#{film.dateDeSortie}"
+								pattern="dd/MM/yyyy">
+								<f:converter converterId="localDateConverter" />
+							</p:calendar>
+						</f:facet>
+					</p:cellEditor>
+
+				</p:column>
+
+				<p:column headerText="Genre">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{film.genre}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{film.genre}" id="inputGenre"
+								panelStyle="width:250px">
+								<f:selectItems value="#{gestionFilmsPageBean.listGenres}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:32px">
+					<p:rowEditor />
+				</p:column>
+
+				<p:column headerText="">
+					<p:commandButton update="@form :tab" icon="ui-icon-close"
+						actionListener="#{gestionFilmsPageBean.deleteFilm(film)}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+
+	</ui:define>
+
+
+</ui:composition>

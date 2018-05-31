@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+	<title><ui:insert name="titre" /></title>
+	<meta charset="UTF-8" />
+</h:head>
+
+<body>
+<h1><ui:insert name="titre" /></h1>
+	<hr />
+	
+<h:form>
+    <p:growl id="messages"/>
+ 
+    <p:menubar>
+    	<p:menuitem value="Accueil" action="gestionFilms" icon="ui-icon-home" />
+        <p:menuitem value="Voir Filmographie" action="voirFilmographie" icon="ui-icon-search" />
+        <p:menuitem value="Evaluer un film" action="evaluerFilm" icon="ui-icon-comment" />
+        <p:menuitem value="Se déconnecter" action="login" icon="ui-icon-close" /> 
+    </p:menubar>
+</h:form>
+
+	<ui:insert name="zone_body" />
+	<footer>Etrs l'école de l'avenir...</footer>
+
+</body>
+</html>

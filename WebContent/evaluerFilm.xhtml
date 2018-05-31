@@ -1,0 +1,108 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/standard.xhtml">
+
+	<ui:define name="titre">Formulaire Film</ui:define>
+
+
+
+	<ui:define name="zone_body">
+		<h:form enctype="multipart/form-data">
+
+			<p:fieldset legend="Rechercher un film"
+				style="margin-bottom:20px;width:700px">
+				<h:panelGrid columns="3" cellspacing="10">
+
+					<p:outputLabel value="Realisateur" for="inputRealisateur" />
+					<p:selectOneMenu value="#{evaluerFilmPageBean.reaSelect}"
+						id="inputRealisateur" panelStyle="width:250px"
+						converter="realisateurConverter">
+						<p:ajax event="valueChange"
+							listener="#{evaluerFilmPageBean.searchFilmByRealisateur}"
+							update="@form :tab" />
+						<f:selectItems value="#{gestionFilmsPageBean.listRealisateur}"
+							var="rea" itemLabel="#{rea.nom}" itemValue="#{rea}" />
+					</p:selectOneMenu>
+					<h:message for="inputRealisateur" />
+
+					<p:outputLabel value="Genre" for="inputGenre" />
+					<p:selectOneRadio id="inputGenre"
+						value="#{evaluerFilmPageBean.genreSelect}" layout="grid"
+						columns="5">
+						<p:ajax event="valueChange"
+							listener="#{evaluerFilmPageBean.searchFilmByGenre}"
+							update="@form :tab" />
+						<f:selectItems value="#{evaluerFilmPageBean.listGenres}" />
+					</p:selectOneRadio>
+					<h:message for="inputGenre" />
+
+				</h:panelGrid>
+
+			</p:fieldset>
+
+		</h:form>
+
+		<h:form id="tab">
+
+			<p:dataTable id="film" var="film"
+				value="#{evaluerFilmPageBean.listFilms}"
+				selection="#{evaluerFilmPageBean.film}" rowKey="#{film.id}">
+				<f:facet name="header">
+            RadioButton
+        </f:facet>
+				<p:column selectionMode="single"
+					style="width:16px;text-align:center" />
+					
+		<p:ajax event="rowSelectRadio"  update="@form :evaluation" listener="#{evaluerFilmPageBean.onRowSelect}"  />
+       
+					
+				<p:column headerText="Titre">
+					<h:outputText value="#{film.titre}" />
+				</p:column>
+
+				<p:column headerText="Realisateur">
+					<h:outputText value="#{film.realisateur}" />
+				</p:column>
+
+				<p:column headerText="Date de sortie">
+					<h:outputText value="#{film.dateDeSortie}">
+						<f:converter converterId="localDateConverter" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Genre">
+					<h:outputText value="#{film.genre}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+		<h:form id="evaluation" >
+
+			<p:fieldset legend="Evaluation de #{evaluerFilmPageBean.film.titre}"
+				style="margin-bottom:20px;width:700px" rendered="#{evaluerFilmPageBean.afficherEvaluation}">
+				<h:panelGrid columns="3" cellspacing="10" >
+
+					<p:outputLabel value="Note" for="inputNote" />
+					<p:rating id="inputNote" value="#{evaluerFilmPageBean.evaluation.note}" />
+					<h:message for="inputNote" />
+					
+					<p:outputLabel value="Commentaire" for="inputCommentaire" />
+					<p:inputTextarea id="inputCommentaire" rows="5" cols="30" counter="comtailleRestant" 
+					maxlength="255" counterTemplate="{0} characters restant." autoResize="false" value="#{evaluerFilmPageBean.evaluation.commentaire}" />
+					<h:outputText id="comtailleRestant" />
+					
+					
+					<p:commandButton
+					actionListener="#{evaluerFilmPageBean.evaluer()}"
+					value="Ajouter Evaluation" update="@form :evaluation" icon="ui-icon-plus"/>
+					
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+
+	</ui:define>
+
+
+</ui:composition>

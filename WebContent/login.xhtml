@@ -1,0 +1,46 @@
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+	<title>Mega vidéo</title>
+	<meta charset="UTF-8" />
+</h:head>
+<body>
+	<h1>Mega vidéo</h1>
+	<hr />
+
+	<h:form>
+
+		<p:fieldset legend="Authentification"
+			style="margin-bottom:20px;width:700px">
+			<h:panelGrid columns="2" cellspacing="10">
+
+				<p:outputLabel value="login" for="inputLogin" />
+				<p:outputLabel value="mdp" for="inputMdp" />
+
+
+
+				<p:inputText value="#{loginPageBean.personne.login}" id="inputLogin">
+
+				</p:inputText>
+
+				<p:inputText value="#{loginPageBean.personne.mdp}" id="inputMdp">
+				</p:inputText>
+
+
+				<p:commandButton
+					action="#{loginPageBean.checkAuthorized(loginPageBean.personne.login,loginPageBean.personne.mdp)}"
+					value="Se connecter" update="@form" />
+
+
+			</h:panelGrid>
+		</p:fieldset>
+
+
+	</h:form>
+	<footer>Etrs l'école de l'avenir...</footer>
+</body>
+</html>
