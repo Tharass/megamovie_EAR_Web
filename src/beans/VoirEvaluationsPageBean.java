@@ -24,6 +24,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import model.entities.Evaluation;
 import model.entities.Film;
 import model.entities.Realisateur;
 import session.FacadeFilm;
@@ -38,8 +39,7 @@ import session.FacadeRealisateur;
 @Log
 public class VoirEvaluationsPageBean implements Serializable{
 
-
-
+	
 	@Inject
 	private FacadeFilm facadeFilm;
 	
@@ -49,6 +49,8 @@ public class VoirEvaluationsPageBean implements Serializable{
 	@Getter @Setter
 	private List<Film> listFilms = new ArrayList<>();
 
+	@Getter @Setter
+	private List<Evaluation> listEvaluation = new ArrayList<>();
 	
 	@Getter @Setter
 	private Map<UUID, byte[]> images = new HashMap();
@@ -94,6 +96,7 @@ public class VoirEvaluationsPageBean implements Serializable{
 		}
 		return true;
 	}
+	
 	
 	public Realisateur getRealisateur(UUID id) {
 		return listRealisateur.get(id);

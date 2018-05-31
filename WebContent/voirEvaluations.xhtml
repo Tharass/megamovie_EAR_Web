@@ -11,7 +11,7 @@
 	<ui:define name="zone_body">
 		<h:form id="form" enctype="multipart/form-data">
 
-			<p:fieldset legend="Rechercher un film"
+			<p:fieldset legend="Rechercher par Realisateur"
 				style="margin-bottom:20px;width:700px">
 				<h:panelGrid columns="3" cellspacing="10">
 
@@ -45,22 +45,15 @@
 					<p:graphicImage value="#{voirEvaluationsPageBean.productImage}" width="150" >
 						<f:param name="pid" value="#{film.id}" />
 					</p:graphicImage>
-
-				</p:column>
-
-				<p:column headerText="Titre">
 					<h:outputText value="#{film.titre}" />
+
 				</p:column>
 
-				<p:column headerText="Date de sortie">
-					<h:outputText value="#{film.dateDeSortie}">
-						<f:converter converterId="localDateConverter" />
-					</h:outputText>
+				<p:column headerText="Note">
+					<p:rating id="inputNote" value="#{evaluerFilmPageBean.evaluation.note}" readonly="true" />
 				</p:column>
 
-				<p:column headerText="Genre">
-					<h:outputText value="#{film.genre}" />
-				</p:column>
+				
 			</p:dataTable>
 		</h:form>
 	</ui:define>

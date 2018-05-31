@@ -90,7 +90,6 @@ public class VoirFilmographiePageBean implements Serializable{
 		}
 		for (int i=0; i<listFilms.size(); i++ ){
             images.put(listFilms.get(i).getId(), listFilms.get(i).getJacket());}
-		
 	}
 
 
