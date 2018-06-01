@@ -1,0 +1,14 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/standard.xhtml">
+
+	<ui:define name="titre">Filmographie</ui:define>
+
+
+
+	<ui:define name="zone_body">
+		<p:chart type="pie" model="#{voirStatistiquesPageBean.pieModel}" style="width:400px;height:300px" />
+	</ui:define>
+</ui:composition>

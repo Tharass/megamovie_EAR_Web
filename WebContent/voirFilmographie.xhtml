@@ -38,7 +38,8 @@
 
 				<p:column headerText="Jacket">
 
-					<p:graphicImage value="#{voirFilmographiePageBean.productImage}" width="150" >
+					<p:graphicImage value="#{voirFilmographiePageBean.productImage}"
+						width="150">
 						<f:param name="pid" value="#{film.id}" />
 					</p:graphicImage>
 
@@ -58,7 +59,14 @@
 				<p:column headerText="Genre">
 					<h:outputText value="#{film.genre}" />
 				</p:column>
+
+				<p:column headerText="Trailer"> 
+					<p:media value="#{film.lienVideo}" width="420" height="315"
+						player="flash" />
+				</p:column>
+
 			</p:dataTable>
 		</h:form>
+		
 	</ui:define>
 </ui:composition>

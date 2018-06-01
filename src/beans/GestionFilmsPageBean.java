@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.spi.CDI;
@@ -15,6 +16,8 @@ import javax.inject.Named;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
+
+import com.sun.xml.rpc.processor.util.StringUtils;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -80,10 +83,27 @@ public class GestionFilmsPageBean implements Serializable{
 		System.out.println("bite :"+reaSelect);
 
 		film.setRealisateur(reaSelect);
+		
+		film.setLienVideo(changerUrl(film.getLienVideo()));
 
 		facadeFilm.ajouterFilm(film);
 		listFilms.add(film);
 		film = CDI.current().select(Film.class).get();
+	}
+
+	private String changerUrl(String lienVideo) {
+		
+
+		if (lienVideo != null && !lienVideo.isEmpty()) {
+			// séparation en sous-chaînes
+			String[] items = lienVideo.split("=");
+
+			if ( items.length > 0 ) {
+				System.out.println("lien generé "+items[1]);
+				return "https://www.youtube.com/v/".concat(items[1]).concat("&amp;hl=en&amp;fs=1&amp;");
+			}
+		}
+		return "";
 	}
 
 	public void deleteFilm(Film film) {

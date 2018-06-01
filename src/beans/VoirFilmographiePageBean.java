@@ -102,15 +102,9 @@ public class VoirFilmographiePageBean implements Serializable{
 		}
 
 		else {
-			for (UUID id : images.keySet()) {
-				System.out.println("map id"+id);
-			}
-			System.out.println("map"+images.size());
-			UUID id = UUID.fromString(context.getExternalContext().getRequestParameterMap().get("pid"));
 			
-			System.out.println("id film "+id);
+			UUID id = UUID.fromString(context.getExternalContext().getRequestParameterMap().get("pid"));
 			byte[] image =  images.get(id);
-			System.out.println("bite img "+images.get(id));
 			return new DefaultStreamedContent(new ByteArrayInputStream(image));
 
 		}

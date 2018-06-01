@@ -12,7 +12,7 @@
 		<h:form enctype="multipart/form-data">
 
 			<p:fieldset legend="Principal" style="margin-bottom:20px;width:700px">
-				<h:panelGrid columns="3" cellspacing="10">
+				<h:panelGrid id="gridDrag1" columns="3" cellspacing="10">
 
 					<p:outputLabel value="Titre" for="inputTitre" />
 					<p:inputText value="#{gestionFilmsPageBean.film.titre}"
@@ -23,7 +23,7 @@
 					<p:outputLabel value="Realisateur" for="inputRealisateur" />
 					<p:selectOneMenu value="#{gestionFilmsPageBean.reaSelect}"
 						id="inputRealisateur" panelStyle="width:250px"
-						converter="realisateurConverter">
+						converter="#{genericConverter}">
 						<f:selectItems value="#{gestionFilmsPageBean.listRealisateur}"
 							var="rea" itemLabel="#{rea.nom}" itemValue="#{rea}" />
 					</p:selectOneMenu>
@@ -39,9 +39,11 @@
 					<h:message for="inputDateDeSorti" />
 
 				</h:panelGrid>
+				
+<p:draggable for="gridDrag1" grid="20,40" />
 			</p:fieldset>
-			<p:fieldset legend="Principal" style="margin-bottom:20px;width:700px">
-				<h:panelGrid columns="3" cellspacing="10">
+			<p:fieldset  id="gridDrag2" legend="Principal" style="margin-bottom:20px;width:700px">
+				<h:panelGrid  columns="3" cellspacing="10">
 				
 					<p:outputLabel value="Genre" for="inputGenre" />
 					<p:selectOneRadio id="inputGenre"
@@ -63,6 +65,14 @@
 
 
 				</h:panelGrid>
+				<p:draggable for="gridDrag2" grid="5,10" />
+				
+				
+				<p:outputLabel value="Lien youtube du trailer" for="inputLienVideo" />
+					<p:inputText value="#{gestionFilmsPageBean.film.lienVideo}"
+						id="inputLienVideo">
+					</p:inputText>
+					<h:message for="inputLienVideo" />
 
 			</p:fieldset>
 			<p:fieldset style="margin-bottom:20px;width:700px">
@@ -101,7 +111,7 @@ l
 						<f:facet name="input">
 							<p:selectOneMenu value="#{gestionFilmsPageBean.reaSelect}"
 								id="inputRealisateur" panelStyle="width:250px"
-								converter="realisateurConverter">
+								converter="#{genericConverter}">
 								<f:selectItems value="#{gestionFilmsPageBean.listRealisateur}"
 									var="rea" itemLabel="#{rea.nom}" itemValue="#{rea}" />
 							</p:selectOneMenu>

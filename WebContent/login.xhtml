@@ -26,10 +26,7 @@
 				<p:inputText value="#{loginPageBean.personne.login}" id="inputLogin">
 
 				</p:inputText>
-
-				<p:inputText value="#{loginPageBean.personne.mdp}" id="inputMdp">
-				</p:inputText>
-
+				<p:password id="inputMdp" value="#{loginPageBean.personne.mdp}" />
 
 				<p:commandButton
 					action="#{loginPageBean.checkAuthorized(loginPageBean.personne.login,loginPageBean.personne.mdp)}"

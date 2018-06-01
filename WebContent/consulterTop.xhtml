@@ -1,0 +1,30 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/standard.xhtml">
+
+	<ui:define name="titre">Top Film</ui:define>
+
+
+
+	<ui:define name="zone_body">
+	<h:form>
+	<p:commandButton
+					
+					value="Se connecter" update="@form :tab" />
+					
+	</h:form>
+	<h:form id="tab" >
+	
+		<p:galleria value="#{consulterTopPageBean.listFilms}" var="film" cache="true">
+			
+			<p:graphicImage value="#{consulterTopPageBean.productImage}"  styleClass="content" >
+			<f:param name="pid" value="#{film.id}" />
+			</p:graphicImage>
+			
+			<div class="caption">#{film.titre}</div>
+		</p:galleria>
+	</h:form>
+	</ui:define>
+</ui:composition>
